@@ -37,7 +37,6 @@ engine.addEntity(well)
 // ))
 
 // engine.addEntity(lift)
-// hud.attachToEntity(lift)
 
 export const trees = new Entity()
 trees.setParent(multiplex)
@@ -53,6 +52,7 @@ trees.addComponent(
 
 engine.addEntity(trees)
 
+// hud.attachToEntity(trees)
 
 // export const statue1 = new Entity()
 // // multiplex.setParent(_scene)
@@ -70,7 +70,7 @@ engine.addEntity(trees)
 
 export const neha = new NPC(
   {
-    position: new Vector3(28, 0.2, 7),
+    position: new Vector3(12.80, 0, 5.94),
     // position: new Vector3(31.45,0.2,68.58),
     scale: new Vector3(1, 1, 1),
     rotation: Quaternion.Euler(0, 0, 0)
@@ -111,6 +111,7 @@ export const neha = new NPC(
     }
   }
 )
+
 
 //adding Akhil
 export const akhil = new NPC(
@@ -158,7 +159,8 @@ export const akhil = new NPC(
     }
   }
 )
-hud.attachToEntity(akhil)
+
+
 
 //adding minakshi
 export const minakshi = new NPC(
@@ -234,7 +236,12 @@ blackMaterial.albedoColor = Color3.FromInts(35, 35, 35)
 // Car entities
 const chassis: Entity = new Entity()
 chassis.addComponent(new GLTFShape("models/carBody.glb"))
-chassis.addComponent(new Transform())
+chassis.addComponent(new Transform(
+  {
+    rotation: Quaternion.Euler(0,180,0)
+    
+  }
+))
 engine.addEntity(chassis)
 
 const wheels: Entity[] = []
@@ -284,10 +291,11 @@ groundBody.material = groundMaterial
 world.addBody(groundBody)
 
 const chassisShape: CANNON.Box = new CANNON.Box(new CANNON.Vec3(7.2 / 2, 3.3 / 2, 1.7 / 2)) // Dimensions is from the center
-const chassisBody: CANNON.Body = new CANNON.Body({ mass: 150 })
+const chassisBody: CANNON.Body = new CANNON.Body({ mass:2000 })
 chassisBody.addShape(chassisShape)
-chassisBody.position.set(23, 4, 9) // Start position in scene
-chassisBody.angularVelocity.set(-1.6, 0.0, 1.5)
+chassisBody.position.set(25, 1, 8) // Start position in scene
+// chassisBody.angularVelocity.set(-1.6, 0.0, -3)
+chassisBody.angularVelocity.set(-2.78, 0.0, -9.12)
 
 
 
