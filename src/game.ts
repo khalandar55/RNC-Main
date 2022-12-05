@@ -238,27 +238,29 @@ const chassis: Entity = new Entity()
 chassis.addComponent(new GLTFShape("models/carBody.glb"))
 chassis.addComponent(new Transform(
   {
-    rotation: Quaternion.Euler(0,180,0)
-    
+    rotation: Quaternion.Euler(0,180,0),
+    scale: new Vector3(0.75,0.75,0.75)
   }
 ))
 engine.addEntity(chassis)
 
 const wheels: Entity[] = []
-const wheelPositions: Vector3[] = [new Vector3(2, 1.5, 0), new Vector3(2, -1.5, 0), new Vector3(-2.1, 1.5, 0), new Vector3(-2.1, -1.5, 0)]
+const wheelPositions: Vector3[] = [new Vector3(1.5, 1, 0), new Vector3(1.5, -1, 0), new Vector3(-1.56, 1, 0), new Vector3(-1.56, -1, 0)]
 
 for (let i = 0; i < wheelPositions.length; i++) {
-  const wheel: Entity = new Entity()
+  const wheel: Entity = new Entity(`wheel${i}`)
   if (i % 2 == 0) {
     wheel.addComponent(new GLTFShape("models/carWheelRight.glb"))
   } else {
     wheel.addComponent(new GLTFShape("models/carWheelLeft.glb"))
   }
 
-  wheel.addComponent(new Transform({ position: wheelPositions[i] }))
+  wheel.addComponent(new Transform({ position: wheelPositions[i],scale: new Vector3(0.75,0.75,0.75)
+  }))
   engine.addEntity(wheel)
   wheels.push(wheel)
 }
+
 
 // Setup our world
 const world: CANNON.World = new CANNON.World()
@@ -291,11 +293,13 @@ groundBody.material = groundMaterial
 world.addBody(groundBody)
 
 const chassisShape: CANNON.Box = new CANNON.Box(new CANNON.Vec3(7.2 / 2, 3.3 / 2, 1.7 / 2)) // Dimensions is from the center
-const chassisBody: CANNON.Body = new CANNON.Body({ mass:2000 })
+const chassisBody: CANNON.Body = new CANNON.Body({ mass:100})
 chassisBody.addShape(chassisShape)
-chassisBody.position.set(25, 1, 8) // Start position in scene
-// chassisBody.angularVelocity.set(-1.6, 0.0, -3)
-chassisBody.angularVelocity.set(-2.78, 0.0, -9.12)
+chassisBody.position.set(25.5, 0.9, 10) // Start position in scene
+// chassisBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2)
+chassisBody.quaternion.setFromEuler(-Math.PI/2,0,-Math.PI/2)
+// chassisBody.angularVelocity.set(-1.6, 0.0, -3)d
+// chassisBody.angularVelocity.set(-2.78, 0.0, -9.12)
 
 
 
