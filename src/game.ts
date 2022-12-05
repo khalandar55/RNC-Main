@@ -204,6 +204,21 @@ export const minakshi = new NPC(
   }
 )
 
+const modArea = new Entity()
+modArea.addComponent(
+  new AvatarModifierArea({
+    area: { box: new Vector3(22.56, 0.88, 6.14) },
+    modifiers: [AvatarModifiers.HIDE_AVATARS],
+  })
+)
+modArea.addComponent(
+  new Transform({
+    position: new Vector3(22.56, 0.88, 6.14),
+  })
+)
+engine.addEntity(modArea)
+
+
 
 //adding the Car
 
